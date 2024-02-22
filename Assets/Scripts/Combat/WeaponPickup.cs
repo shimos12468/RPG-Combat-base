@@ -9,30 +9,33 @@ namespace RPG.Combat
     {
 
         [SerializeField] Weapon weapon;
-        [SerializeField] float hideDuration = 15f;
+        [SerializeField] float respawnTime = 5f;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
             {
                 other.GetComponent<Fighter>().EquipeWeapon(weapon);
-                StartCoroutine(HideForSeconds());
+                StartCoroutine(HideForSeconds(respawnTime));
             }
         }
 
-        private IEnumerator HideForSeconds()
+        private IEnumerator HideForSeconds(float seconds)
         {
-            foreach(Transform obj in transform)
-            {
-                obj.gameObject.SetActive(false);
-            }
-            GetComponent<SphereCollider>().enabled =false;
-            yield return new WaitForSeconds(hideDuration);
+            ShowPickup(false);
+            yield return new WaitForSeconds(seconds);
+            ShowPickup(true);
+        }
+
+        private void ShowPickup(bool shoulShow)
+        {
             foreach (Transform obj in transform)
             {
-                obj.gameObject.SetActive(true);
+                obj.gameObject.SetActive(shoulShow);
             }
-            GetComponent<SphereCollider>().enabled = true;
+            GetComponent<Collider>().enabled = shoulShow;
         }
     }
 }
+
+

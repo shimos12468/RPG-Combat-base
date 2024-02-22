@@ -374,6 +374,11 @@ PrefabInstance:
       propertyPath: health
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 5717283293313286349, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: characterClass
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6104693912662488787, guid: 2dfa4da6a2a2e5049840e196bf85b732,
         type: 3}
       propertyPath: anim
