@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
+using RPG.Attributes;
 using RPG.Core;
 using RPG.Saving;
-using Unity.Mathematics;
+
 using UnityEngine;
 using UnityEngine.AI;
 

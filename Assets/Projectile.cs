@@ -1,7 +1,4 @@
-using RPG.Core;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using RPG.Attributes;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -10,6 +7,7 @@ namespace RPG.Combat
     {
 
         Health target;
+        GameObject instigator;
         [SerializeField] GameObject hitEffect;
         [SerializeField] float speed = 1.0f;
         [SerializeField] bool isHooming = false;
@@ -17,8 +15,7 @@ namespace RPG.Combat
         [SerializeField] float durationBeforeDestroy = 10f;
         [SerializeField] GameObject[] projectileParts = null;
         [SerializeField] float lifeAfterImpact = 2f;
-        // Update is called once per frame
-
+         
         private void Start()
         {
             Destroy(gameObject, durationBeforeDestroy);
@@ -46,10 +43,11 @@ namespace RPG.Combat
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
-        public void SetTarget(Health target, float damage)
+        public void SetTarget(Health target,GameObject instigator, float damage)
         {
             this.target = target;
             this.damage = damage;
+            this.instigator = instigator;
 
             transform.LookAt(GetAimLocation(target));
         }
@@ -61,7 +59,7 @@ namespace RPG.Combat
 
             if (target.IsDead()) return;
 
-            target.TakeDamage(damage);
+            target.TakeDamage(instigator,damage);
             if (hitEffect != null) Instantiate(hitEffect, GetAimLocation(target), transform.rotation);
             speed = 0;
             foreach (var obj in projectileParts)

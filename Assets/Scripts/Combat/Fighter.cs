@@ -1,7 +1,7 @@
+using RPG.Attributes;
 using RPG.Core;
 using RPG.Movment;
 using RPG.Saving;
-using System;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -9,7 +9,7 @@ namespace RPG.Combat
 
     public class Fighter : MonoBehaviour,IAction,ISaveable
     {
-         Health target;
+        Health target;
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] Weapon defaultWeapon = null;
         [SerializeField] Transform rightHandPosition= null;
@@ -39,6 +39,12 @@ namespace RPG.Combat
             currentWeapon=weapon;
             weapon.Spawn(rightHandPosition,leftHandPosition, anim);
         }
+
+        public Health GetTarget()
+        {
+            return target;
+        }
+
 
         public bool CanAttack(GameObject target)
         {
@@ -91,11 +97,11 @@ namespace RPG.Combat
 
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandPosition, leftHandPosition, target);
+                currentWeapon.LaunchProjectile(rightHandPosition, leftHandPosition, target ,gameObject);
             }
             else
             {
-                target.TakeDamage(currentWeapon.GetDamage());
+                target.TakeDamage(gameObject ,currentWeapon.GetDamage());
 
             }
             

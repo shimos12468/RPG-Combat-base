@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RPG.stats
@@ -11,11 +12,26 @@ namespace RPG.stats
 
         [SerializeField] ProgressionCharacterClass[] characterClasses;
 
+
+        public float GetHealth(CharacterClass cc ,int level)
+        {
+
+           foreach (var c in characterClasses)
+           {
+                if (c.characterClass == cc)
+                {
+                    return c.health[level-1];
+                }
+           }
+           return 0;
+        }
+
+
         [System.Serializable]
         class ProgressionCharacterClass
         {
-            [SerializeField] CharacterClass characterClass;
-            [SerializeField] List<float> health;
+             public CharacterClass characterClass;
+             public List<float> health;
         }
 
     }

@@ -1,4 +1,4 @@
-using RPG.Core;
+using RPG.Attributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,10 +58,10 @@ namespace RPG.Combat
 
         public bool HasProjectile() { return projectile != null; }
 
-        public void LaunchProjectile(Transform rightHandTransform, Transform leftHandTransform,Health target)
+        public void LaunchProjectile(Transform rightHandTransform, Transform leftHandTransform,Health target,GameObject instigator)
         {
             Projectile projectileInstance = Instantiate(projectile,GetTransform(rightHandTransform,leftHandTransform).position,Quaternion.identity);
-            projectileInstance.SetTarget(target ,weaponDamage);
+            projectileInstance.SetTarget(target,instigator ,weaponDamage);
         }
 
         public float GetDamage() { return weaponDamage; }
