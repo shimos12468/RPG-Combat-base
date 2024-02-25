@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +12,64 @@ namespace RPG.stats
     {
 
         [SerializeField] ProgressionCharacterClass[] characterClasses;
+        Dictionary<CharacterClass, Dictionary<Stat, float[]>> LookupTable = null;
 
-
-        public float GetHealth(CharacterClass cc ,int level)
+        
+        public float GetStat(CharacterClass characterClass,Stat stat ,int level)
         {
+           BuildLookup();
 
-           foreach (var c in characterClasses)
-           {
-                if (c.characterClass == cc)
-                {
-                    return c.health[level-1];
-                }
-           }
-           return 0;
+            float[] levels = LookupTable[characterClass][stat];
+            if (levels.Length < level)
+            {
+                return 0;
+            }
+                
+           return levels[level-1];
         }
 
+        public  void BuildLookup()
+        {
+            if (LookupTable != null) return;
+
+
+            LookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
+
+            foreach (var characterClass in characterClasses)
+            {
+
+                var statLookupTable = new Dictionary<Stat, float[]>();
+
+                foreach(var progressionStat in characterClass.stats)
+                {
+                    statLookupTable[progressionStat.stat] = progressionStat.levels;
+                }
+                LookupTable[characterClass.characterClass] = statLookupTable;
+
+            }
+
+        }
+
+
+        public int GetLevels(CharacterClass characterClass, Stat stat)
+        {
+            BuildLookup();
+            return LookupTable[characterClass][stat].Length;
+        }
 
         [System.Serializable]
         class ProgressionCharacterClass
         {
              public CharacterClass characterClass;
-             public List<float> health;
+             public ProgressionStat [] stats;
         }
 
+        [System.Serializable]
+        class ProgressionStat
+        {
+            public Stat stat;
+            public float[] levels;
+
+        }
     }
 }

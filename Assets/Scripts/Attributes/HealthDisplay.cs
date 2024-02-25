@@ -20,7 +20,7 @@ namespace RPG.Attributes
 
         private void Update()
         {
-            GetComponent<TMP_Text>().text = String.Format("{0}%",health.GetPercentage().ToString());
+            GetComponent<TMP_Text>().text = string.Format("{0:0}/{1:0}",health.GetHealthPoints().ToString(), health.GetMaxHealth().ToString());
         }
     }
 

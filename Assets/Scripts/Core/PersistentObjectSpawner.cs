@@ -13,11 +13,9 @@ namespace RPG.Core
         private void Awake()
         {
             if (hasSpawned) return;
-
             SpawnPersistentObject();
-            hasSpawned= true;
+            hasSpawned = true;
         }
-
         private void SpawnPersistentObject()
         {
             GameObject persistantObject= Instantiate(persistentObjectPrefab);

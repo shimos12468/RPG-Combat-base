@@ -25,8 +25,7 @@ namespace RPG.Movment
 
         void LateUpdate()
         {
-              GetComponent<NavMeshAgent>().enabled=!health.IsDead();
-
+            GetComponent<NavMeshAgent>().enabled=!health.IsDead();
             UpdateAnimator();
         }
 

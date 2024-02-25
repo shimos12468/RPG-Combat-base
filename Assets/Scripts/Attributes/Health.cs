@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameDevTV.Utils;
 using RPG.Core;
 using RPG.Saving;
 using RPG.stats;
@@ -9,29 +11,49 @@ namespace RPG.Attributes
 {
     public class Health : MonoBehaviour ,ISaveable
     {
-        [SerializeField]float health =100f;
-         private Animator anim;
+        [SerializeField] float regenPercentage = 70;
+        LazyValue<float>health;
+        private Animator anim;
         private bool dead = false;
 
+        BaseStats baseStats = null;
+        private void Awake()
+        {
+            anim = GetComponent<Animator>();
+            baseStats = GetComponent<BaseStats>();
+            health = new LazyValue<float>(GetInitialHealth);
+        }
+
+        private float GetInitialHealth()
+        {
+            return baseStats.GetStat(Stat.Health);
+        }
 
         private void Start()
         {
-            health = GetComponent<BaseStats>().GetHealth();
+          health.ForceInit();
         }
 
+        private void OnEnable()
+        {
+            baseStats.onLevelUp += RegenerateHealth;
+        }
+
+        private void OnDisable()
+        {
+            baseStats.onLevelUp -= RegenerateHealth;
+        }
         public bool IsDead()
         {
             return dead;
         }
-        private void Awake()
+
+        
+
+        public void TakeDamage(GameObject instigator, float damage)
         {
-            
-            anim = GetComponent<Animator>();
-        }
-        public void TakeDamage( GameObject instigator,float damage)
-        {
-            health = Mathf.Max(health - damage, 0);
-            if (health == 0 )
+            health.value = Mathf.Max(health.value - damage, 0);
+            if (health.value == 0)
             {
                 Die();
 
@@ -39,44 +61,59 @@ namespace RPG.Attributes
             }
         }
 
-        private void AwardExperiancec(GameObject instigator)
+
+        public float GetHealthPoints()
         {
-             Experiance experiance= instigator.GetComponent<Experiance>();
-             if (experiance != null )
-            {
-                experiance.GainExperiance(GetComponent<BaseStats>().GetXP());
-            }
-        
+            return health.value;
+        }
+        public float GetMaxHealth()
+        {
+            return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public float GetPercentage()
         {
-            return 100*(health/ GetComponent<BaseStats>().GetHealth());
-        }
-        private void Die()
-        {
-                if(dead)return;
-
-
-                anim.SetTrigger("Die");
-                dead = true;
-                GetComponent<ActionScheduler>().CancelCurrentAction();
             
+            return 100*(health.value / GetComponent<BaseStats>().GetStat(Stat.Health));
         }
 
         public object CaptureState()
         {
-            return health;
+            return health.value;
         }
-
         public void RestoreState(object state)
         {
-             health= (float)state;
-            if(health==0){
+            health.value = (float)state;
+            if(health.value == 0){
                 Die();
             }
 
         }
+        private void AwardExperiancec(GameObject instigator)
+        {
+            Experiance experiance = instigator.GetComponent<Experiance>();
+            if (experiance != null)
+            {
+                experiance.GainExperiance(GetComponent<BaseStats>().GetStat(Stat.XP));
+            }
+
+        }
+        private void Die()
+        {
+            if (dead) return;
+            anim.SetTrigger("Die");
+            dead = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+
+        }
+
+        private void RegenerateHealth()
+        {
+            float healthRegen = GetComponent<BaseStats>().GetStat(Stat.Health)* regenPercentage / 100;
+            health.value = Mathf.Max(health.value, healthRegen);
+        }
+
+        
     }
 
 }

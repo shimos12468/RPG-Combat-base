@@ -1,13 +1,17 @@
+using GameDevTV.Utils;
 using RPG.Attributes;
 using RPG.Core;
 using RPG.Movment;
 using RPG.Saving;
+using RPG.stats;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Combat
 {
 
-    public class Fighter : MonoBehaviour,IAction,ISaveable
+    public class Fighter : MonoBehaviour,IAction,ISaveable,IModifierProvider
     {
         Health target;
         [SerializeField] float timeBetweenAttacks = 1f;
@@ -15,7 +19,7 @@ namespace RPG.Combat
         [SerializeField] Transform rightHandPosition= null;
         [SerializeField] Transform leftHandPosition = null;
         string defaultWeaponName = "Unarmed";
-        Weapon currentWeapon= null;
+        LazyValue<Weapon> currentWeapon;
         Animator anim;
         private float timeSinceLastAttack = 1f;
 
@@ -23,21 +27,30 @@ namespace RPG.Combat
         private void Awake()
         {
             anim = GetComponentInChildren<Animator>();
+            currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
             
         }
+
+        private Weapon SetupDefaultWeapon()
+        {
+           AttachWeapon(defaultWeapon);
+           return defaultWeapon;
+        }
+
         private void Start()
         {
-            if (currentWeapon == null)
-            {
-
-                EquipeWeapon(defaultWeapon);
-            }
+            currentWeapon.ForceInit();
         }
 
         public void EquipeWeapon(Weapon weapon)
         {
-            currentWeapon=weapon;
-            weapon.Spawn(rightHandPosition,leftHandPosition, anim);
+            currentWeapon.value = weapon;
+            AttachWeapon(weapon);
+        }
+
+        private void AttachWeapon(Weapon weapon)
+        {
+            weapon.Spawn(rightHandPosition, leftHandPosition, anim);
         }
 
         public Health GetTarget()
@@ -89,20 +102,37 @@ namespace RPG.Combat
             anim.SetTrigger("Attack");
         }
 
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currentWeapon.value.GetDamage();
+            }
+        }
+
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currentWeapon.value.GetPercentageBouns();
+            }
+        }
+
+
         //Animation event
         void Hit()
         {
             if (target == null)return;
 
-
-            if (currentWeapon.HasProjectile())
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+            print(damage);
+            if (currentWeapon.value.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(rightHandPosition, leftHandPosition, target ,gameObject);
+                currentWeapon.value.LaunchProjectile(rightHandPosition, leftHandPosition, target ,gameObject , damage);
             }
             else
             {
-                target.TakeDamage(gameObject ,currentWeapon.GetDamage());
-
+                target.TakeDamage(gameObject , damage);
             }
             
         }
@@ -133,12 +163,12 @@ namespace RPG.Combat
 
         public bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetRange();
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.value.GetRange();
         }
 
         public object CaptureState()
         {
-            return currentWeapon.name;
+            return currentWeapon.value.name;
         }
 
         public void RestoreState(object state)
@@ -150,5 +180,7 @@ namespace RPG.Combat
             Weapon equipedWeapon = Resources.Load<Weapon>(defaultWeaponName);
             EquipeWeapon(equipedWeapon);
         }
+
+        
     }
 }

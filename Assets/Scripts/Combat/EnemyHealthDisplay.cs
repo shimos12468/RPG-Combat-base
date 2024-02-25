@@ -30,7 +30,7 @@ namespace RPG.Attributes
             }
             else
             {
-                GetComponent<TMP_Text>().text = String.Format("{0}%", fighter.GetTarget().GetPercentage().ToString());
+                GetComponent<TMP_Text>().text = String.Format("{0:0}/{1:0}", fighter.GetTarget().GetHealthPoints().ToString(),fighter.GetTarget().GetMaxHealth());
 
             }
         }

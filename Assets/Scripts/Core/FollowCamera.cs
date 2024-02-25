@@ -9,11 +9,11 @@ namespace RPG.Core
     {
         [SerializeField] GameObject target;
 
-        private void Start() {
+        private void Awake() {
             target = GameObject.FindGameObjectWithTag("Player");
         }
 
-        // Update is called once per frame
+        
         void Update()
         {
             transform.position = target.transform.position;

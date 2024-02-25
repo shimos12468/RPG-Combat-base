@@ -8,15 +8,19 @@ using RPG.Attributes;
 
 namespace RPG.Control
 {
-
     public class PlayerController : MonoBehaviour
     {
+        Health health;
+        private void Awake()
+        {
+            health = GetComponent<Health>();
+        }
+
 
         void Update()
         {
 
-            if (GetComponent<Health>().IsDead()) return;
-
+            if (health.IsDead()) return;
             if (InteractWithComabt()) return;
             if(InteractWithMovment()) return;
             
