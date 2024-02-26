@@ -11,6 +11,11 @@ PrefabInstance:
       propertyPath: chaseDistance
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 348414923779776019, guid: d6c06b3ce4fea9f43a64c433196b2816,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 20db9170-b048-4712-af62-8fee85054af8
+      objectReference: {fileID: 0}
     - target: {fileID: 5608840183154294776, guid: d6c06b3ce4fea9f43a64c433196b2816,
         type: 3}
       propertyPath: characterClass
@@ -30,17 +35,17 @@ PrefabInstance:
     - target: {fileID: 8642710004331997938, guid: d6c06b3ce4fea9f43a64c433196b2816,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 27.3
       objectReference: {fileID: 0}
     - target: {fileID: 8642710004331997938, guid: d6c06b3ce4fea9f43a64c433196b2816,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -4.006752
       objectReference: {fileID: 0}
     - target: {fileID: 8642710004331997938, guid: d6c06b3ce4fea9f43a64c433196b2816,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 13.69
       objectReference: {fileID: 0}
     - target: {fileID: 8642710004331997938, guid: d6c06b3ce4fea9f43a64c433196b2816,
         type: 3}
@@ -80,7 +85,7 @@ PrefabInstance:
     - target: {fileID: 8642710004331997942, guid: d6c06b3ce4fea9f43a64c433196b2816,
         type: 3}
       propertyPath: m_Name
-      value: Archer
+      value: 'Archer '
       objectReference: {fileID: 0}
     - target: {fileID: 8692866829362752391, guid: d6c06b3ce4fea9f43a64c433196b2816,
         type: 3}

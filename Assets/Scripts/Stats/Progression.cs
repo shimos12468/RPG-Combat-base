@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace RPG.stats
+namespace RPG.Stats
 {
 
     [CreateAssetMenu(fileName = "Progression", menuName = "Stats/ New Progression", order = 0)]
@@ -28,7 +28,7 @@ namespace RPG.stats
            return levels[level-1];
         }
 
-        public  void BuildLookup()
+        public void BuildLookup()
         {
             if (LookupTable != null) return;
 

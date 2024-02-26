@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.stats
+namespace RPG.Stats
 {
     public class BaseStats : MonoBehaviour
     {
@@ -77,12 +77,14 @@ namespace RPG.stats
 
         private float GetBaseStat(Stat stat)
         {
+            
             return progression.GetStat(characterClass, stat, GetLevel());
         }
 
         private float AdditiveModifiers(Stat stat)
         {
            if(!shouldUseModifiers)return 0;
+
            float totalAdditaveBouns =0;
            foreach(IModifierProvider provider in GetComponents<IModifierProvider>())
            {

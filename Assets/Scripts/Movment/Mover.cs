@@ -2,7 +2,7 @@
 using RPG.Attributes;
 using RPG.Core;
 using RPG.Saving;
-
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +14,7 @@ namespace RPG.Movment
         private NavMeshAgent agent;
         private Health health;
         [SerializeField]float maxSpeed =6f;
+        [SerializeField]float maxPathLength = 40f;
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -74,6 +75,26 @@ namespace RPG.Movment
             MoverSavedData data = (MoverSavedData)state;
             agent.Warp(data.position.ToVector());
             transform.eulerAngles = data.rotation.ToVector();
+        }
+
+        internal bool CanMoveTo(Vector3 distination)
+        {
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, distination, NavMesh.AllAreas, path);
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if (GetPathLength(path) > maxPathLength) return false;
+            return true;
+        }
+        private float GetPathLength(NavMeshPath path)
+        {
+            float totalDistance = 0;
+            if (path.corners.Length < 2) return totalDistance;
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                totalDistance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+            return totalDistance;
         }
     }
 }

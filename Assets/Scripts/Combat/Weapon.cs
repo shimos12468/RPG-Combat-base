@@ -58,10 +58,13 @@ namespace RPG.Combat
         }
 
         public bool HasProjectile() { return projectile != null; }
-
+        int ff = 0;
         public void LaunchProjectile(Transform rightHandTransform, Transform leftHandTransform,Health target,GameObject instigator ,float calculatedDamage)
         {
+            Debug.Log("dsada");
             Projectile projectileInstance = Instantiate(projectile,GetTransform(rightHandTransform,leftHandTransform).position,Quaternion.identity);
+            projectileInstance.name = projectileInstance.name + " " + ff;
+            ff++;
             projectileInstance.SetTarget(target,instigator , calculatedDamage);
         }
 

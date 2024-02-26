@@ -19,5 +19,5 @@ MonoBehaviour:
   percentageBouns: 5
   weaponRange: 20
   isRightHanded: 0
-  projectile: {fileID: 7406180685145017952, guid: 319bc78f3ed6a1c4ebe0b395c19b4253,
+  projectile: {fileID: 6516845012703712698, guid: acea32c066693c24189a3a90afe668ff,
     type: 3}

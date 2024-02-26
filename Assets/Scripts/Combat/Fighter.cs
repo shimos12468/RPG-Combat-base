@@ -3,7 +3,7 @@ using RPG.Attributes;
 using RPG.Core;
 using RPG.Movment;
 using RPG.Saving;
-using RPG.stats;
+using RPG.Stats;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +28,6 @@ namespace RPG.Combat
         {
             anim = GetComponentInChildren<Animator>();
             currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
-            
         }
 
         private Weapon SetupDefaultWeapon()
@@ -62,6 +61,7 @@ namespace RPG.Combat
         public bool CanAttack(GameObject target)
         {
             if(target == null) return false;
+            if (!GetComponent<Mover>().CanMoveTo(target.transform.position)) return false;
             return target.GetComponent<Health>()!=null&&!target.GetComponent<Health>().IsDead();
         }
         private void Update()
@@ -125,7 +125,6 @@ namespace RPG.Combat
             if (target == null)return;
 
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
-            print(damage);
             if (currentWeapon.value.HasProjectile())
             {
                 currentWeapon.value.LaunchProjectile(rightHandPosition, leftHandPosition, target ,gameObject , damage);
@@ -173,10 +172,7 @@ namespace RPG.Combat
 
         public void RestoreState(object state)
         {
-            defaultWeaponName= state.ToString();
-
-            print(defaultWeaponName);
-            print(gameObject.name);
+            defaultWeaponName = state.ToString();
             Weapon equipedWeapon = Resources.Load<Weapon>(defaultWeaponName);
             EquipeWeapon(equipedWeapon);
         }

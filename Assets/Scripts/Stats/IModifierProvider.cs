@@ -1,8 +1,8 @@
-using RPG.stats;
+using RPG.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace RPG.stats{
+namespace RPG.Stats{
 
     public interface IModifierProvider
     {
