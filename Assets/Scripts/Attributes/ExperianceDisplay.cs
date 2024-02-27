@@ -18,7 +18,7 @@ namespace RPG.Attributes
 
         private void Update()
         {
-            GetComponent<TMP_Text>().text = String.Format("{0:0}", experiance.ExperiancePoints.ToString());
+            GetComponent<TMP_Text>().text = String.Format("{0:0}", experiance.ExperiancePoints);
         }
     }
 

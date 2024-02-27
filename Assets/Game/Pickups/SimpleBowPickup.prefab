@@ -151,6 +151,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3cb6a6a4c913a5b43bd55882b7a9a8e2,
         type: 2}
+    - target: {fileID: 6379324061915926064, guid: 186fae57b2185894a83e281b6d8cf2e2,
+        type: 3}
+      propertyPath: weaponConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 3cb6a6a4c913a5b43bd55882b7a9a8e2,
+        type: 2}
     - target: {fileID: 8501688682226359268, guid: 186fae57b2185894a83e281b6d8cf2e2,
         type: 3}
       propertyPath: m_Radius
@@ -164,7 +170,7 @@ PrefabInstance:
     - target: {fileID: 8551070473128641795, guid: 186fae57b2185894a83e281b6d8cf2e2,
         type: 3}
       propertyPath: m_Name
-      value: SimpleBowPickup 1
+      value: SimpleBowPickup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 186fae57b2185894a83e281b6d8cf2e2, type: 3}

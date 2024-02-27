@@ -2138,10 +2138,45 @@ PrefabInstance:
       propertyPath: health
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 1885285796973035749, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885285796973035749, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885285796973035749, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 2099297794}
+    - target: {fileID: 1885285796973035749, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885285796973035749, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Aggrevate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885285796973035749, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: RPG.Control.AIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885285796973035749, guid: 2dfa4da6a2a2e5049840e196bf85b732,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3789896892767669737, guid: 2dfa4da6a2a2e5049840e196bf85b732,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4277725700954902296, guid: 2dfa4da6a2a2e5049840e196bf85b732,
         type: 3}
@@ -2151,7 +2186,7 @@ PrefabInstance:
     - target: {fileID: 5124004104267349897, guid: 2dfa4da6a2a2e5049840e196bf85b732,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5717283293313286349, guid: 2dfa4da6a2a2e5049840e196bf85b732,
         type: 3}
@@ -2364,6 +2399,7 @@ MonoBehaviour:
   patrolPath: {fileID: 0}
   waypointTolerance: 1
   suspicionTime: 5
+  aggroCooldownTime: 3
   dwellingTime: 10
   patrolSpeedFraction: 0.2
 --- !u!114 &8842520608670744774

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f576181a9421c0347ad352f7c17a390d, type: 3}
   m_Name: Tough Enemy SimpleBow
   m_EditorClassIdentifier: 
-  equipedPrefab: {fileID: 4350790994300986650, guid: bc5c9c6db8dd8dc429c5a694a2c109a5,
+  equipedPrefab: {fileID: 5946213900163478865, guid: bc5c9c6db8dd8dc429c5a694a2c109a5,
     type: 3}
   animatorOverride: {fileID: 22100000, guid: aa04084550bec764094dc3e3d09f4261, type: 2}
   weaponDamage: 18

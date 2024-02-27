@@ -68,6 +68,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2c5f638439c107d428338e7f182e0e29,
         type: 2}
+    - target: {fileID: 6379324061915926064, guid: 186fae57b2185894a83e281b6d8cf2e2,
+        type: 3}
+      propertyPath: weaponConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 2c5f638439c107d428338e7f182e0e29,
+        type: 2}
     - target: {fileID: 8501688682226359268, guid: 186fae57b2185894a83e281b6d8cf2e2,
         type: 3}
       propertyPath: m_Center.z

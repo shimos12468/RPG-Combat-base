@@ -58,4 +58,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98cc2ea4e8360b047aaa67b1150fecda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: c7883bdc4406dab41b770e49696bbba8, type: 2}
+  weaponConfig: {fileID: 11400000, guid: c7883bdc4406dab41b770e49696bbba8, type: 2}
+  healthToRestore: 0
+  respawnTime: 5
